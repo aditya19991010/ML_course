@@ -1,33 +1,31 @@
 #Compute hypothesis or y_predict
 import pandas as pd
 import numpy as np
-from lab3.ex2_helper import plot_param, train_test_split
+from sklearn.metrics import r2_score
+import seaborn as sns
+# from sklearn.model_selection import train_test_split
 
+from lab3.ex2_helper import plot_param, train_test_split
+import matplotlib.pyplot as plt
 
 #Closed form equation
-# 1. hx = theta.T*X
+# 1. hx = X*theta
 # 2. J = 1/2 sum(theta*X - y).T * (theta*X - y)
-def main():
-# Define features and target
 
-    df = pd.read_csv('../lab3/simulated_data_multiple_linear_regression_for_ML.csv')
-    df = pd.DataFrame(df)
+# calculate J
+def comp_theta(X,y): #X,y=  X_train, y_train
+    X = np.c_[np.ones((X.shape[0], 1)), X] # intercept
+    Xt_X = np.dot(X.T,X)
+    inv_Xt_X = np.linalg.inv(Xt_X)
+    Xt_y = np.dot(X.T,y)
+    theta = np.dot(inv_Xt_X, Xt_y)
+    return theta
 
-    features = ['age', 'BMI', 'BP', 'Gender', 'blood_sugar']
-    target = 'disease_score_fluct'
+def comp_hx(theta, X_train):
+    X = np.c_[np.ones((X_train.shape[0], 1)), X_train]
+    hx = X@theta
+    return hx
 
-    # train - test split
-    size = 0.7
-    seed = 42
-    X_train, X_test, y_train, y_test = train_test_split(df, size, seed, features, target)
-
-    theta_initial = np.ones((len(X_train),1), dtype=int)
-    print(X_train, X_train.shape)
-    print(theta_initial, theta_initial.shape)
-
-    hx = np.dot(theta_initial.T,X_train)
-    print(hx)
-
-if __name__=="__main__":
-    main()
-
+def comp_J(hx,y_train):
+    J = 0.5* (hx-y_train).T * (hx-y_train)
+    return J

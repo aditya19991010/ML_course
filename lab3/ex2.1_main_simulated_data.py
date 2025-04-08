@@ -22,14 +22,14 @@ def main():
 
     # Run gradient descent
     alpha= 1e-10
-    iterations=400000
+    iterations=4000
     J_history, theta_history = gradient_descent(X_train, y_train, iterations, alpha)
 
     # Output results
     # print("Optimal theta:", theta_history)
     # print("Final cost:", J_history)
     op_theta = theta_history[-1,:] #Optimal theta for all
-
+    print(op_theta)
     # plot J vs param
     fig = plot_param(features, theta_history, J_history, alpha, iterations)
     fig

@@ -8,7 +8,7 @@ df = pd.read_csv("simulated_data_multiple_linear_regression_for_ML.csv", sep=","
 print(df.head())
 print(df.columns)
 print(df.info())
-print(df.count())
+print(f"Count: {df.count()}")
 print("Dimension: ",df.shape)
 # print(df.describe())
 
@@ -32,6 +32,12 @@ def corr_df(df):
 df_num = df.select_dtypes(include=['float64', 'int64'])
 df_corr = df_num.corr()['disease_score_fluct'][:-1]
 df_corr_sig = df_corr[abs(df_corr) > 0.5]
+
+df_corr_matrix = pd.DataFrame(df_num).corr()
+
+print(df_corr_matrix)
+sns.heatmap(df_corr_matrix)
+plt.show()
 # df_corr_sig_col = df[df["age", "disease_score"]]
 
 

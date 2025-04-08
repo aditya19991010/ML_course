@@ -59,6 +59,7 @@ size="MedHouseVal"
 rng = np.random.RandomState(0)
 indices = rng.choice(np.arange(california_housing.frame.shape[0]), size=500, replace=False)
 print(california_housing.frame.shape[0])
+
 # Drop the unwanted columns
 columns_drop = ["Longitude", "Latitude"]
 

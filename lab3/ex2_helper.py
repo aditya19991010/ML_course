@@ -14,7 +14,6 @@ def train_test_split(df, size, seed, features, target):
     #feature, target : add in the list
 
     # train test split
-
     np.random.seed(seed)
     random_index = np.random.permutation(df.index)
 
