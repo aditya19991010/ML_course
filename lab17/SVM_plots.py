@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
+from mpmath import sqrtm
 from sklearn.preprocessing import LabelEncoder
 
 data = {
@@ -46,6 +47,7 @@ def plot_training_data_with_decision_boundary( kernel):
         plot_method="pcolormesh",
         alpha=0.2,
     )
+
     DecisionBoundaryDisplay.from_estimator(
         **common_params,
         response_method="decision_function",
@@ -71,13 +73,12 @@ def plot_training_data_with_decision_boundary( kernel):
 plot_training_data_with_decision_boundary(kernel="linear")
 plt.show()
 quit()
-
 ########################################333
 
 
 def Transform(x1, x2):
     # Polynomial transformation to higher dimension
-    return np.column_stack((x1, x2, x1**2 + x2**2))
+    return np.column_stack((x1**2, x2**2, np.sqrt(x1*x2)))
 
 # Apply transformation
 transformed = Transform(df['x1'], df['x2'])
@@ -99,20 +100,19 @@ ax.set_zlabel('x3')
 ax.set_title('Transformed 3D Points')
 
 # Optional: Add a separating plane
-# Plane equation: z = c (because x3 = x1^2 + x2^2)
+# Plane equation: z = c (because x3 = sqrt(x1*x2))
 xx, yy = np.meshgrid(np.linspace(df['x1'].min()-1, df['x1'].max(), 10),
                      np.linspace(df['x2'].min()-1, df['x2'].max(), 10))
-zz_surface = xx**2 + yy**2
+zz_surface =  np.sqrt(xx**2 * yy**2)
 ax.plot_surface(xx, yy, zz_surface, color='lightgreen', alpha=0.3, rstride=1, cstride=1)
 
 # Plot the decision boundary plane
-# We'll pick a z-level between the classes
-boundary_z = 100  # You can adjust this value
+boundary_z = 100
 zz_boundary = np.full_like(xx, boundary_z)
 ax.plot_surface(xx, yy, zz_boundary, color='orange', alpha=0.5)
 
-# Optional: Add legend manually
 from matplotlib.lines import Line2D
+
 legend_elements = [
     Line2D([0], [0], marker='o', color='w', label='Blue Class', markerfacecolor='blue', markersize=10),
     Line2D([0], [0], marker='o', color='w', label='Red Class', markerfacecolor='red', markersize=10),
