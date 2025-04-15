@@ -11,7 +11,6 @@ df = pd.read_csv("/home/ibab/learning/ML_Lab/datasets/sonar data.csv")
 X = df.iloc[:,:-1]
 y = df.iloc[:,-1]
 y = LabelEncoder().fit_transform(y)
-print(X,y)
 
 # Train/Test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
