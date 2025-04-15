@@ -30,9 +30,8 @@ _ = plt.show()
 from sklearn import svm
 from sklearn.inspection import DecisionBoundaryDisplay
 
-def plot_training_data_with_decision_boundary( kernel):
-    # Train the SVC
-    clf = svm.SVC(kernel=kernel, gamma=2).fit(X, y)
+
+def plot_training_data_with_decision_boundary( model, kernel,levels_arr):
 
     # Settings for plotting
     _, ax = plt.subplots(figsize=(8, 8))
@@ -40,7 +39,7 @@ def plot_training_data_with_decision_boundary( kernel):
     ax.set(xlim=(x_min, x_max), ylim=(y_min, y_max))
 
     # Plot decision boundary and margins
-    common_params = {"estimator": clf, "X": X, "ax": ax}
+    common_params = {"estimator": model, "X": X, "ax": ax}
     DecisionBoundaryDisplay.from_estimator(
         **common_params,
         response_method="predict",
@@ -52,14 +51,14 @@ def plot_training_data_with_decision_boundary( kernel):
         **common_params,
         response_method="decision_function",
         plot_method="contour",
-        levels=[-1, 0, 1],
+        levels=levels_arr,
         colors=["k", "k", "k"],
         linestyles=["--", "-", "--"],
     )
 
     ax.scatter(
-        clf.support_vectors_[:, 0],
-        clf.support_vectors_[:, 1],
+        model.support_vectors_[:, 0],
+        model.support_vectors_[:, 1],
         s=150,
         facecolors="none",
         edgecolors="k")
@@ -70,7 +69,12 @@ def plot_training_data_with_decision_boundary( kernel):
 
     ax.set_title(f"Decision boundaries of {kernel} kernel in SVC")
 
-plot_training_data_with_decision_boundary(kernel="linear")
+
+kernel="linear"
+clf = svm.SVC(kernel=kernel, gamma=2).fit(X, y)
+levels=[-1, 0, 1]
+
+plot_training_data_with_decision_boundary(model=clf,kernel="linear", levels_arr=levels)
 plt.show()
 quit()
 ########################################333

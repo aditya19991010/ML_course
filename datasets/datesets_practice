@@ -1,0 +1,32 @@
+Function
+Description
+load_iris()
+Iris flower dataset (3 classes)
+load_digits()
+8x8 pixel handwritten digits (0–9)
+load_wine()
+Wine chemical analysis (3 classes)
+load_breast_cancer()
+Breast cancer diagnostic data
+load_diabetes()
+Diabetes progression (regression)
+load_linnerud()
+Exercise vs. physiological measures
+
+
+
+Function
+Description
+fetch_20newsgroups()
+Newsgroup text classification
+fetch_olivetti_faces()
+Face images
+fetch_california_housing()
+California housing (regression)
+fetch_covtype()
+Forest cover types (classification)
+fetch_rcv1()
+Reuters newswire topics (text)
+fetch_openml()
+Fetch datasets from OpenML.org
+
