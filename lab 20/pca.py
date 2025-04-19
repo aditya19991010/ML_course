@@ -24,6 +24,7 @@ axes[0].scatter(scores[:,0],scores[:,1])
 axes[0].set_xlabel("PC1")
 axes[0].set_ylabel("PC2")
 
+
 #creating arrow
 
 for k in range(pca.components_.shape[1]):
