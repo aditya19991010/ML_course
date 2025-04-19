@@ -3,6 +3,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
+import matplotlib.pyplot as plt
 
 #data preparation
 df = ISLP.load_data("Weekly")
@@ -14,13 +15,7 @@ X = df.drop("Direction", axis="columns")
 X_scaled =StandardScaler().fit_transform(X)
 y_enc = LabelEncoder().fit_transform(y)
 
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from ISLP import load_data  # Assuming ISLP provides a custom dataset loader
+
 
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_enc, test_size=0.33, random_state=42)
 
@@ -41,6 +36,10 @@ data = X_scaled # feature training data
 num_plots = min(max_k, 1 * 3)
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 axes = axes.flatten()
+
+'''
+Inertia measures how well the dataset is clustered by K-means
+'''
 inertias = []
 
 for k in range(1, max_k + 1):
@@ -61,9 +60,7 @@ fig.suptitle("K-Means Clustering Results for Different K")
 plt.tight_layout()
 plt.show()
 
-'''
-Inertia measures how well the dataset is clustered by K-means
-'''
+
 
 plt.plot(range(1, max_k + 1), inertias, marker='*', markersize=10, linestyle='--', color='red')
 plt.grid()
