@@ -19,7 +19,7 @@ scores = pca.fit_transform(US_scaled)
 print(scores)
 
 print("\nComponents: ",pca.components_)
-print("\nExplained variance: ",pca.explained_variance_)
+print("\nExplained variance: ",pca.explained_variance_ratio_)
 
 
 #Plotting
